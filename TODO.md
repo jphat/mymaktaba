@@ -1,0 +1,4 @@
+- [ ] view: add book view for home listing
+- [ ] search: trim and sanitize description
+- [ ] search: show language
+- [ ] search: show book details
