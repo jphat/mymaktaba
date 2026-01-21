@@ -1,0 +1,23 @@
+{
+    "chat.tools.terminal.autoApprove": {
+        "flutter analyze": true,
+        "flutter clean": true,
+        "flutter pub get": true,
+        "flutter test": true,
+        "ls": true,
+        "pwd": true,
+    },
+    "dart.mcpServer": true,
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 16,
+    "editor.fontVariations": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.lineHeight": 3,
+    "editor.minimap.enabled": false,
+    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.lineHeight": 2,
+}

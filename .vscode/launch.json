@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "name": "MyMaktaba (Flutter iPhone 17 Pro Max)",
+            "program": "lib/main.dart",
+            "deviceId": "45980041-1DAC-4970-BEE4-867FC450C149",
+            "request": "launch",
+            "type": "dart"
+        }
+    ]
+}
