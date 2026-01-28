@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [0.0.5] - 2026-01-28
+
+### Added
+
+- Updated [book.dart](lib/models/book.dart) model to include `dateAdded` and `dateModified` fields.
+- Updated [database_helper.dart](lib/services/database_helper.dart) to version 2, adding schema migrations and automatic timestamp updates for new and edited books.
+- Firebase MCP in [.vscode/mcp.json](.vscode/mcp.json)
+
 ## [0.0.4] - 2026-01-28
 
 ### Added
@@ -52,7 +60,8 @@ and this project adheres to [Semantic Versioning].
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[unreleased]: https://github.com/jphat/mymaktaba/compare/v0.0.4...HEAD
+[unreleased]: https://github.com/jphat/mymaktaba/compare/v0.0.5...HEAD
+[0.0.5]: https://github.com/jphat/mymaktaba/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/jphat/mymaktaba/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/jphat/mymaktaba/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/jphat/mymaktaba/compare/v0.0.1...v0.0.2

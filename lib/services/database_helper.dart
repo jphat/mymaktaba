@@ -18,7 +18,19 @@ class DatabaseHelper {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, filePath);
 
-    return await openDatabase(path, version: 1, onCreate: _createDB);
+    return await openDatabase(
+      path,
+      version: 2,
+      onCreate: _createDB,
+      onUpgrade: _upgradeDB,
+    );
+  }
+
+  Future _upgradeDB(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await db.execute('ALTER TABLE books ADD COLUMN dateAdded TEXT');
+      await db.execute('ALTER TABLE books ADD COLUMN dateModified TEXT');
+    }
   }
 
   Future _createDB(Database db, int version) async {
@@ -34,13 +46,16 @@ CREATE TABLE books (
   isbn10 $textType,
   isbn13 $textType,
   description $textType,
-  thumbnailUrl $textType
+  thumbnailUrl $textType,
+  dateAdded $textType,
+  dateModified $textType
   )
     ''');
   }
 
   Future<Book> create(Book book) async {
     final db = await instance.database;
+    // The Book constructor handles setting dateAdded and dateModified to now if not provided
     final id = await db.insert('books', book.toMap());
     return book.copyWith(id: id, isSaved: true);
   }
@@ -57,6 +72,8 @@ CREATE TABLE books (
         'isbn13',
         'description',
         'thumbnailUrl',
+        'dateAdded',
+        'dateModified',
       ],
       where: 'id = ?',
       whereArgs: [id],
@@ -71,7 +88,7 @@ CREATE TABLE books (
 
   Future<List<Book>> readAllBooks() async {
     final db = await instance.database;
-    const orderBy = 'id DESC';
+    const orderBy = 'dateAdded DESC, id DESC';
     final result = await db.query('books', orderBy: orderBy);
 
     return result.map((json) => Book.fromMap(json)).toList();
@@ -79,10 +96,11 @@ CREATE TABLE books (
 
   Future<int> update(Book book) async {
     final db = await instance.database;
+    final bookWithModified = book.copyWith(dateModified: DateTime.now());
 
     return db.update(
       'books',
-      book.toMap(),
+      bookWithModified.toMap(),
       where: 'id = ?',
       whereArgs: [book.id],
     );
