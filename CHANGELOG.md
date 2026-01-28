@@ -9,6 +9,25 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [0.0.6] - 2026-01-28
+
+### Added
+
+- 
+
+### Changed
+
+- Minimum iOS version to 15
+
+### Deprecated
+
+### Removed
+
+### Fixed
+
+### Security
+
+
 ## [0.0.5] - 2026-01-28
 
 ### Added
