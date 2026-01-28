@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../providers/book_provider.dart';
 import '../widgets/book_list_item.dart';
-import '../widgets/custom_icon.dart';
 import 'add_book_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -48,8 +47,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     SlidableAction(
                       onPressed: (_) {
                         final text =
-                            'Book: ${book.title}\nAuthor: ${book.authors}\nISBN: ${book.isbn13 ?? book.isbn10}';
-                        Share.share(text);
+                            'CheckoutBook: ${book.title}\nAuthor: ${book.authors}\nISBN: ${book.isbn13 ?? book.isbn10}';
+                        SharePlus.instance.share(ShareParams(text: text));
                       },
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,

@@ -4,6 +4,7 @@
         "flutter clean": true,
         "flutter pub get": true,
         "flutter test": true,
+        "git tag": true,
         "ls": true,
         "pwd": true,
     },

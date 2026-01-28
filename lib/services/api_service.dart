@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer' as developer;
 import 'package:http/http.dart' as http;
 import '../models/book.dart';
 
@@ -51,7 +52,7 @@ class ApiService {
         }
       }
     } catch (e) {
-      print('Google Books API Error: $e');
+      developer.log('Google Books API Error: $e');
     }
     return [];
   }
@@ -97,7 +98,7 @@ class ApiService {
         }
       }
     } catch (e) {
-      print('Open Library API Error: $e');
+      developer.log('Open Library API Error: $e');
     }
     return [];
   }
