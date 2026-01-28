@@ -6,6 +6,8 @@ import '../providers/book_provider.dart';
 import '../widgets/book_list_item.dart';
 import 'add_book_screen.dart';
 
+import 'package:mymaktaba/services/auth_service.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -26,7 +28,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
+      appBar: AppBar(
+        title: const Text('Home'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () async {
+              await AuthService().signOut();
+            },
+          ),
+        ],
+      ),
       body: Consumer<BookProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading) {
