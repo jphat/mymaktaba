@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "855852171121",
+    "project_id": "ej-mymaktaba",
+    "storage_bucket": "ej-mymaktaba.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:855852171121:android:34a4fb34d05b6aa04740d0",
+        "android_client_info": {
+          "package_name": "com.example.mymaktaba"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "855852171121-shbt7j9296mo63ci2635i4r1u5vbftph.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANEWSBGPmQfYdtu_A7HeW9wNDDEX-MWOA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "855852171121-shbt7j9296mo63ci2635i4r1u5vbftph.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "855852171121-4qpjol6gb5iurvqplbrht63i0174hqea.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.mymaktaba"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

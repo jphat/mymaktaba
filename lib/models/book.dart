@@ -1,11 +1,13 @@
 class Book {
-  final int? id;
+  final String? id;
   final String title;
   final String authors;
   final String? isbn10;
   final String? isbn13;
   final String? description;
   final String? thumbnailUrl;
+  final DateTime dateAdded;
+  final DateTime dateModified;
   // Indicates if the book is saved in local database
   bool isSaved;
 
@@ -17,8 +19,11 @@ class Book {
     this.isbn13,
     this.description,
     this.thumbnailUrl,
+    DateTime? dateAdded,
+    DateTime? dateModified,
     this.isSaved = false,
-  });
+  }) : dateAdded = dateAdded ?? DateTime.now(),
+       dateModified = dateModified ?? DateTime.now();
 
   Map<String, dynamic> toMap() {
     return {
@@ -29,18 +34,26 @@ class Book {
       'isbn13': isbn13,
       'description': description,
       'thumbnailUrl': thumbnailUrl,
+      'dateAdded': dateAdded.toIso8601String(),
+      'dateModified': dateModified.toIso8601String(),
     };
   }
 
   factory Book.fromMap(Map<String, dynamic> map) {
     return Book(
-      id: map['id'],
+      id: map['id']?.toString(),
       title: map['title'],
       authors: map['authors'] ?? '',
       isbn10: map['isbn10'],
       isbn13: map['isbn13'],
       description: map['description'],
       thumbnailUrl: map['thumbnailUrl'],
+      dateAdded: map['dateAdded'] != null
+          ? DateTime.parse(map['dateAdded'])
+          : null,
+      dateModified: map['dateModified'] != null
+          ? DateTime.parse(map['dateModified'])
+          : null,
       isSaved:
           true, // Assuming from map implies from DB unless specified otherwise
     );
@@ -48,13 +61,15 @@ class Book {
 
   // Create a copy with overrides
   Book copyWith({
-    int? id,
+    String? id,
     String? title,
     String? authors,
     String? isbn10,
     String? isbn13,
     String? description,
     String? thumbnailUrl,
+    DateTime? dateAdded,
+    DateTime? dateModified,
     bool? isSaved,
   }) {
     return Book(
@@ -65,6 +80,8 @@ class Book {
       isbn13: isbn13 ?? this.isbn13,
       description: description ?? this.description,
       thumbnailUrl: thumbnailUrl ?? this.thumbnailUrl,
+      dateAdded: dateAdded ?? this.dateAdded,
+      dateModified: dateModified ?? this.dateModified,
       isSaved: isSaved ?? this.isSaved,
     );
   }

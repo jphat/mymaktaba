@@ -1,0 +1,53 @@
+{
+    "firestore": {
+        "rules": "firestore.rules"
+    },
+    "database": {
+        "rules": "database.rules.json"
+    },
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "ej-mymaktaba",
+                    "appId": "1:855852171121:android:34a4fb34d05b6aa04740d0",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "ios": {
+                "default": {
+                    "projectId": "ej-mymaktaba",
+                    "appId": "1:855852171121:ios:7be568844ccf0cf34740d0",
+                    "uploadDebugSymbols": false,
+                    "fileOutput": "ios/Runner/GoogleService-Info.plist"
+                }
+            },
+            "macos": {
+                "default": {
+                    "projectId": "ej-mymaktaba",
+                    "appId": "1:855852171121:ios:7fc247f3d15e4b8e4740d0",
+                    "uploadDebugSymbols": false,
+                    "fileOutput": "macos/Runner/GoogleService-Info.plist"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "ej-mymaktaba",
+                    "configurations": {
+                        "android": "1:855852171121:android:34a4fb34d05b6aa04740d0",
+                        "ios": "1:855852171121:ios:7be568844ccf0cf34740d0",
+                        "macos": "1:855852171121:ios:7fc247f3d15e4b8e4740d0",
+                        "web": "1:855852171121:web:3189c6937fd8d4094740d0",
+                        "windows": "1:855852171121:web:5b75b18d701c0f774740d0"
+                    }
+                }
+            }
+        }
+    },
+    "firestore": {
+        "database": "(default)",
+        "location": "nam5",
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
+    }
+}

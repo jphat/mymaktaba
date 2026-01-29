@@ -4,8 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:csv/csv.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import '../models/book.dart';
-import '../services/database_helper.dart';
 import '../services/api_service.dart';
 
 class BookProvider with ChangeNotifier {
@@ -19,16 +20,39 @@ class BookProvider with ChangeNotifier {
   bool get isLoading => _isLoading;
   String? get error => _error;
 
-  final DatabaseHelper _dbHelper = DatabaseHelper.instance;
   final ApiService _apiService = ApiService();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
+
+  String? get _userId => _auth.currentUser?.uid;
+
+  CollectionReference? get _userBooksRef {
+    final uid = _userId;
+    if (uid == null) return null;
+    return _db.collection('users').doc(uid).collection('books');
+  }
 
   Future<void> loadSavedBooks() async {
+    if (_userBooksRef == null) {
+      _savedBooks = [];
+      notifyListeners();
+      return;
+    }
+
     _isLoading = true;
     notifyListeners();
     try {
-      _savedBooks = await _dbHelper.readAllBooks();
+      final snapshot = await _userBooksRef!.get();
+      _savedBooks = snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        data['id'] = doc.id;
+        return Book.fromMap(data);
+      }).toList();
+
+      _savedBooks.sort((a, b) => b.dateAdded.compareTo(a.dateAdded));
     } catch (e) {
       _error = e.toString();
+      debugPrint('Error loading books from Firestore: $e');
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -36,36 +60,67 @@ class BookProvider with ChangeNotifier {
   }
 
   Future<void> addBook(Book book) async {
-    await _dbHelper.create(book);
-    await loadSavedBooks();
+    if (_userBooksRef == null) {
+      _error = 'User not logged in';
+      notifyListeners();
+      return;
+    }
 
-    // Update state in search results if present
-    final index = _searchResults.indexWhere(
-      (b) =>
-          (b.isbn13 != null && b.isbn13 == book.isbn13) ||
-          (b.isbn10 != null && b.isbn10 == book.isbn10) ||
-          b.title == book.title,
-    );
+    try {
+      final newDoc = _userBooksRef!.doc();
+      final bookToSave = book.copyWith(id: newDoc.id, isSaved: true);
 
-    if (index != -1) {
-      _searchResults[index] = _searchResults[index].copyWith(isSaved: true);
+      await newDoc.set(bookToSave.toMap());
+      await loadSavedBooks();
+
+      final index = _searchResults.indexWhere(
+        (b) =>
+            (b.isbn13 != null && b.isbn13 == book.isbn13) ||
+            (b.isbn10 != null && b.isbn10 == book.isbn10) ||
+            b.title == book.title,
+      );
+
+      if (index != -1) {
+        _searchResults[index] = _searchResults[index].copyWith(isSaved: true);
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint('Error adding book to Firestore: $e');
+      _error = e.toString();
       notifyListeners();
     }
   }
 
   Future<void> updateBook(Book book) async {
-    await _dbHelper.update(book);
-    await loadSavedBooks();
+    if (_userBooksRef == null) return;
+    if (book.id == null) return;
+
+    try {
+      await _userBooksRef!.doc(book.id).update(book.toMap());
+      await loadSavedBooks();
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+    }
   }
 
-  Future<void> deleteBook(int id) async {
-    await _dbHelper.delete(id);
-    await loadSavedBooks();
+  Future<void> deleteBook(String id) async {
+    if (_userBooksRef == null) return;
 
-    // We might want to update search results too
-    // but mapping back from ID to search result (which has no ID) is hard.
-    // However, simpler to just searching again or ignoring it,
-    // but for consistency we can match by ISBNs in search results to mark isSaved=false.
+    try {
+      await _userBooksRef!.doc(id).delete();
+      await loadSavedBooks();
+
+      for (int i = 0; i < _searchResults.length; i++) {
+        if (_searchResults[i].id == id) {
+          _searchResults[i] = _searchResults[i].copyWith(isSaved: false);
+        }
+      }
+      notifyListeners();
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+    }
   }
 
   Future<void> searchBooks(String query) async {
@@ -75,23 +130,19 @@ class BookProvider with ChangeNotifier {
     notifyListeners();
 
     try {
-      // 1. Search Local
-      final localResults = await _dbHelper.searchLocalBooks(query);
+      final q = query.toLowerCase();
+      final localResults = _savedBooks.where((book) {
+        return book.title.toLowerCase().contains(q) ||
+            book.authors.toLowerCase().contains(q) ||
+            (book.isbn10?.contains(q) ?? false) ||
+            (book.isbn13?.contains(q) ?? false);
+      }).toList();
 
-      // 2. Search API
       final apiResults = await _apiService.searchBooks(query);
-
-      // 3. Merge and Check Saved Status
-      // We want to show local results first? Or mixed?
-      // "Unified search of saved books and ... APIs"
-      // Let's list local books first, marked as saved.
 
       List<Book> results = [...localResults];
 
       for (var book in apiResults) {
-        // Check if this book is already in localResults (by ISBN or Title exact match?)
-        // Or check if it is in _savedBooks (more reliable for isSaved flag)
-
         bool alreadyInList = results.any(
           (b) =>
               (b.isbn13 != null &&
@@ -103,8 +154,16 @@ class BookProvider with ChangeNotifier {
         );
 
         if (!alreadyInList) {
-          // check if actually saved in DB even if not in local search results (e.g. search query match API but not local by text)
-          bool isSaved = await _dbHelper.isBookSaved(book.isbn10, book.isbn13);
+          bool isSaved = _savedBooks.any(
+            (b) =>
+                (b.isbn13 != null &&
+                    book.isbn13 != null &&
+                    b.isbn13 == book.isbn13) ||
+                (b.isbn10 != null &&
+                    book.isbn10 != null &&
+                    b.isbn10 == book.isbn10),
+          );
+
           results.add(book.copyWith(isSaved: isSaved));
         }
       }
@@ -118,12 +177,11 @@ class BookProvider with ChangeNotifier {
     }
   }
 
-  // Export
   Future<void> exportData(String format) async {
     if (_savedBooks.isEmpty) return;
 
     String data = '';
-    String fileName = 'books_export';
+    String fileName = 'MyMaktaba_Export';
     String mimeType = 'text/plain';
 
     switch (format) {
@@ -165,7 +223,9 @@ class BookProvider with ChangeNotifier {
     final file = File('${directory.path}/$fileName');
     await file.writeAsString(data);
 
-    await Share.shareXFiles([XFile(file.path, mimeType: mimeType)]);
+    await SharePlus.instance.share(
+      ShareParams(files: [XFile(file.path, mimeType: mimeType)]),
+    );
   }
 
   bool isValidIsbn(String isbn) {
