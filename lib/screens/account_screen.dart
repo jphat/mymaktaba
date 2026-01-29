@@ -12,7 +12,13 @@ class AccountScreen extends StatelessWidget {
     final user = auth.currentUser;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Account')),
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Text(
+          'Account',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
