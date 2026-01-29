@@ -27,3 +27,7 @@ service cloud.firestore {
     }
   }
 }`
+
+...
+
+cd ios && pod install --repo-update
