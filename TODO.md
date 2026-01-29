@@ -6,3 +6,4 @@
 - [ ] simulator: sign in to apple account, sign in with apple/google
 - [ ] search: clear when user changes
 - [ ] auth: biometrics
+- [ ] search: double click to clear
