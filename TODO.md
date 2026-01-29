@@ -2,3 +2,5 @@
 - [ ] search: trim and sanitize description
 - [ ] search: show language
 - [ ] search: show book details
+- [ ] android: change bundle name
+- [ ] simulator: sign in to apple account, sign in with apple/google

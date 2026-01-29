@@ -44,6 +44,11 @@ dependencies:
   provider: ^6.1.5+1
   flutter_svg: ^2.2.3
   flutter_slidable: ^4.0.3
+  firebase_core: ^4.4.0
+  firebase_auth: ^6.1.4
+  firebase_database: ^12.1.2
+  google_sign_in: ^6.2.2
+  sign_in_with_apple: ^7.0.1
 
 dev_dependencies:
   flutter_test:
@@ -56,6 +61,8 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^6.0.0
   flutter_launcher_icons: ^0.14.4
+  mockito: ^5.6.3
+  build_runner: ^2.10.5
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

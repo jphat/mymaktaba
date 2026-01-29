@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/book.dart';
 import '../providers/book_provider.dart';
+import 'account_screen.dart';
 
 class AddBookScreen extends StatefulWidget {
   final Book? bookToEdit;
@@ -87,7 +88,27 @@ class _AddBookScreenState extends State<AddBookScreen> {
   Widget build(BuildContext context) {
     final isEditing = widget.bookToEdit != null;
     return Scaffold(
-      appBar: AppBar(title: Text(isEditing ? 'Edit Book' : 'Add Book')),
+      // appBar: AppBar(title: Text(isEditing ? 'Edit Book' : 'Add Book')),
+      appBar: AppBar(
+        centerTitle: false,
+        title: Text(
+          isEditing ? 'Edit Book' : 'Add Book',
+          style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.account_circle_outlined),
+            iconSize: 32,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AccountScreen()),
+              );
+            },
+          ),
+          const SizedBox(width: 8), // Padding from the right edge
+        ],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Form(
