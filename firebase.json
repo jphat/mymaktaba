@@ -1,4 +1,10 @@
 {
+    "firestore": {
+        "rules": "firestore.rules"
+    },
+    "database": {
+        "rules": "database.rules.json"
+    },
     "flutter": {
         "platforms": {
             "android": {
@@ -37,5 +43,11 @@
                 }
             }
         }
+    },
+    "firestore": {
+        "database": "(default)",
+        "location": "nam5",
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
     }
 }

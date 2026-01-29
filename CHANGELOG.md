@@ -9,6 +9,26 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [0.0.7] - 2026-01-29
+
+### Added
+
+- **Cloud Storage**: Integrated **Firebase Cloud Firestore** for reliable cloud-based data persistence.
+- **Security**: Added `firestore.rules` to enforce strict user-scoped data access (users can only read/write their own books).
+- **Dependencies**: Added `cloud_firestore`.
+
+### Changed
+
+- **Storage Architecture**: Migrated data storage from local SQLite (`sqflite`) to Firestore. Books are now saved under `users/{userId}/books`.
+- **Data Model**: Updated [Book](lib/models/book.dart) model to use String IDs instead of integers for compatibility with Firestore document keys.
+- **State Management**: completely rewrote [BookProvider](lib/providers/book_provider.dart) to handle asynchronous Firestore operations (add, update, delete, fetch).
+- **Sharing**: Updated export functionality in `BookProvider` to correctly use `SharePlus.instance.share`.
+
+### Removed
+
+- **Legacy Storage**: Deleted [database_helper.dart](lib/services/database_helper.dart) and removed local SQLite implementation.
+- **Dependencies**: Removed `firebase_database` (Realtime Database) in favor of Firestore.
+
 ## [0.0.6] - 2026-01-29
 
 ### Added
@@ -82,7 +102,9 @@ and this project adheres to [Semantic Versioning].
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[unreleased]: https://github.com/jphat/mymaktaba/compare/v0.0.5...HEAD
+[unreleased]: https://github.com/jphat/mymaktaba/compare/v0.0.7...HEAD
+[0.0.7]: https://github.com/jphat/mymaktaba/compare/v0.0.6...v0.0.7
+[0.0.6]: https://github.com/jphat/mymaktaba/compare/v0.0.5...v0.0.6
 [0.0.5]: https://github.com/jphat/mymaktaba/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/jphat/mymaktaba/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/jphat/mymaktaba/compare/v0.0.2...v0.0.3

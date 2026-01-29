@@ -46,6 +46,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '855852171121',
     projectId: 'ej-mymaktaba',
     authDomain: 'ej-mymaktaba.firebaseapp.com',
+    databaseURL: 'https://ej-mymaktaba-default-rtdb.firebaseio.com',
     storageBucket: 'ej-mymaktaba.firebasestorage.app',
   );
 
@@ -85,6 +86,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '855852171121',
     projectId: 'ej-mymaktaba',
     authDomain: 'ej-mymaktaba.firebaseapp.com',
+    databaseURL: 'https://ej-mymaktaba-default-rtdb.firebaseio.com',
     storageBucket: 'ej-mymaktaba.firebasestorage.app',
   );
 }

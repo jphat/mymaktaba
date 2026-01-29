@@ -1,5 +1,5 @@
 class Book {
-  final int? id;
+  final String? id;
   final String title;
   final String authors;
   final String? isbn10;
@@ -41,7 +41,7 @@ class Book {
 
   factory Book.fromMap(Map<String, dynamic> map) {
     return Book(
-      id: map['id'],
+      id: map['id']?.toString(),
       title: map['title'],
       authors: map['authors'] ?? '',
       isbn10: map['isbn10'],
@@ -61,7 +61,7 @@ class Book {
 
   // Create a copy with overrides
   Book copyWith({
-    int? id,
+    String? id,
     String? title,
     String? authors,
     String? isbn10,

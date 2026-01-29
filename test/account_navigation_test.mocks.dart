@@ -202,7 +202,7 @@ class MockBookProvider extends _i1.Mock implements _i5.BookProvider {
           as _i4.Future<void>);
 
   @override
-  _i4.Future<void> deleteBook(int? id) =>
+  _i4.Future<void> deleteBook(String? id) =>
       (super.noSuchMethod(
             Invocation.method(#deleteBook, [id]),
             returnValue: _i4.Future<void>.value(),
