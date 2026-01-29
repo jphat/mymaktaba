@@ -9,23 +9,26 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
-## [0.0.6] - 2026-01-28
+## [0.0.6] - 2026-01-29
 
 ### Added
 
-- 
+- **Authentication System**: Implemented full support for Email/Password, Google, and Apple Sign-In.
+- **Screens**: Added [LoginScreen](lib/screens/login_screen.dart) and [AccountScreen](lib/screens/account_screen.dart).
+- **Tests**: Added unit and widget tests for authentication flow and navigation.
+- **iOS**: Added `Runner.entitlements` to enable "Sign in with Apple" capability.
 
 ### Changed
 
-- Minimum iOS version to 15
-
-### Deprecated
-
-### Removed
+- **UI**: Redesigned [HomeScreen](lib/screens/home_screen.dart) AppBar with left-aligned title and user profile icon.
+- **Navigation**: Updated [main.dart](lib/main.dart) to act as an auth gate, redirecting to login if needed.
+- **Dependencies**: Added `google_sign_in` and `sign_in_with_apple`.
+- Minimum iOS version to 15.
 
 ### Fixed
 
-### Security
+- Resolved iOS CocoaPods dependency conflicts causing Google Sign-In failures.
+- Fixed Apple Sign-In error 1000 by correctly configuring project entitlements.
 
 
 ## [0.0.5] - 2026-01-28

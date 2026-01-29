@@ -6,7 +6,8 @@ import '../providers/book_provider.dart';
 import '../widgets/book_list_item.dart';
 import 'add_book_screen.dart';
 
-import 'package:mymaktaba/services/auth_service.dart';
+// import 'package:mymaktaba/services/auth_service.dart';
+import 'package:mymaktaba/screens/account_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,14 +30,23 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home'),
+        centerTitle: false,
+        title: const Text(
+          'Home',
+          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
+        ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () async {
-              await AuthService().signOut();
+            icon: const Icon(Icons.account_circle_outlined),
+            iconSize: 32,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AccountScreen()),
+              );
             },
           ),
+          const SizedBox(width: 8), // Padding from the right edge
         ],
       ),
       body: Consumer<BookProvider>(
