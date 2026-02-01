@@ -9,6 +9,24 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [0.0.8] - 2026-02-01
+
+### Added
+
+- **UI Component**: Created reusable [CustomAppBar](lib/widgets/custom_app_bar.dart) widget for consistent navigation and styling across screens.
+- **Book Details Screen**: Added [BookViewScreen](lib/screens/book_view_screen.dart) with full book information display, including cover image, metadata, and action buttons.
+- **Expandable Description**: Implemented collapsible description with 4-line preview and "Show more/less" toggle in BookViewScreen.
+- **Book Actions**: Added Share, Edit, and Delete functionality with confirmation dialog in BookViewScreen.
+
+### Changed
+
+- **Navigation**: Updated [HomeScreen](lib/screens/home_screen.dart) to navigate to BookViewScreen when a book item is tapped.
+- **Consistent UI**: Migrated [HomeScreen](lib/screens/home_screen.dart), [SearchScreen](lib/screens/search_screen.dart), [ExportScreen](lib/screens/export_screen.dart), and [AddBookScreen](lib/screens/add_book_screen.dart) to use CustomAppBar.
+
+### Fixed
+
+- Fixed corrupted code in [BookViewScreen](lib/screens/book_view_screen.dart) that caused compilation errors.
+
 ## [0.0.7] - 2026-01-29
 
 ### Added
@@ -102,7 +120,8 @@ and this project adheres to [Semantic Versioning].
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[unreleased]: https://github.com/jphat/mymaktaba/compare/v0.0.7...HEAD
+[unreleased]: https://github.com/jphat/mymaktaba/compare/v0.0.8...HEAD
+[0.0.8]: https://github.com/jphat/mymaktaba/compare/v0.0.7...v0.0.8
 [0.0.7]: https://github.com/jphat/mymaktaba/compare/v0.0.6...v0.0.7
 [0.0.6]: https://github.com/jphat/mymaktaba/compare/v0.0.5...v0.0.6
 [0.0.5]: https://github.com/jphat/mymaktaba/compare/v0.0.4...v0.0.5

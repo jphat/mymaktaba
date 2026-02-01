@@ -1,9 +1,15 @@
-- [ ] view: add book view for home listing
-- [ ] search: trim and sanitize description
-- [ ] search: show language
-- [ ] search: show book details
 - [ ] android: change bundle name
-- [ ] simulator: sign in to apple account, sign in with apple/google
-- [ ] search: clear when user changes
+- [ ] app: delete account with option to export all
+- [ ] app: import/export
+- [ ] app: themes that defaults to sys pref
 - [ ] auth: biometrics
+- [ ] book: book image background
+- [ ] book: reset details if source online + edited
+- [ ] search: clear when user changes
+- [ ] search: dedup
 - [ ] search: double click to clear
+- [ ] search: show book details
+- [ ] search: show language
+- [ ] search: trim and sanitize description
+- [ ] simulator: sign in to apple account, sign in with apple/google
+- [ ] view: add book view for home listing

@@ -22,4 +22,6 @@
     "editor.minimap.enabled": false,
     "terminal.integrated.fontSize": 14,
     "terminal.integrated.lineHeight": 2,
+    "debug.console.fontSize": 14,
+    "debug.console.lineHeight": 24
 }

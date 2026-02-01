@@ -4,10 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import '../providers/book_provider.dart';
 import '../widgets/book_list_item.dart';
+import '../widgets/custom_app_bar.dart';
 import 'add_book_screen.dart';
-
-// import 'package:mymaktaba/services/auth_service.dart';
-import 'package:mymaktaba/screens/account_screen.dart';
+import 'book_view_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -29,26 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text(
-          'Home',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle_outlined),
-            iconSize: 32,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AccountScreen()),
-              );
-            },
-          ),
-          const SizedBox(width: 8), // Padding from the right edge
-        ],
-      ),
+      appBar: const CustomAppBar(title: 'Home'),
       body: Consumer<BookProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading) {
@@ -107,7 +87,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                child: BookListItem(book: book),
+                child: BookListItem(
+                  book: book,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BookViewScreen(book: book),
+                      ),
+                    );
+                  },
+                ),
               );
             },
           );

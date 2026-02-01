@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import '../providers/book_provider.dart';
 import '../widgets/book_list_item.dart';
 import '../widgets/custom_icon.dart';
+import '../widgets/custom_app_bar.dart';
 import 'scanner_screen.dart';
-import 'account_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -51,27 +51,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: const Text('Search Books')),
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text(
-          'Search',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle_outlined),
-            iconSize: 32,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AccountScreen()),
-              );
-            },
-          ),
-          const SizedBox(width: 8), // Padding from the right edge
-        ],
-      ),
+      appBar: const CustomAppBar(title: 'Search'),
       body: Column(
         children: [
           Padding(
