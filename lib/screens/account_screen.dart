@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:mymaktaba/services/auth_service.dart';
+import '../providers/theme_provider.dart';
 
 class AccountScreen extends StatelessWidget {
   final AuthService? authService;
@@ -10,6 +12,12 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = authService ?? AuthService();
     final user = auth.currentUser;
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final currentBrightness = Theme.of(context).brightness;
+    final isDarkMode =
+        themeProvider.themeMode == ThemeMode.dark ||
+        (themeProvider.themeMode == ThemeMode.system &&
+            currentBrightness == Brightness.dark);
 
     return Scaffold(
       appBar: AppBar(
@@ -58,6 +66,31 @@ class AccountScreen extends StatelessWidget {
               Text('User ID', style: Theme.of(context).textTheme.labelLarge),
               Text(user.uid, style: Theme.of(context).textTheme.bodySmall),
               const SizedBox(height: 40),
+              const Divider(),
+              const SizedBox(height: 16),
+              Text(
+                'Preferences',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 16),
+              SwitchListTile(
+                title: const Text('Dark Mode'),
+                subtitle: Text(
+                  themeProvider.themeMode == ThemeMode.system
+                      ? 'Following system settings'
+                      : isDarkMode
+                      ? 'Enabled'
+                      : 'Disabled',
+                ),
+                value: isDarkMode,
+                onChanged: (value) {
+                  themeProvider.toggleTheme(value);
+                },
+                secondary: Icon(
+                  isDarkMode ? Icons.dark_mode : Icons.light_mode,
+                ),
+              ),
+              const SizedBox(height: 16),
             ] else
               const Text('No user signed in'),
             Center(

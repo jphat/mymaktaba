@@ -9,6 +9,26 @@ and this project adheres to [Semantic Versioning].
 
 - /
 
+## [0.0.9] - 2026-02-02
+
+### Added
+
+- **Theme Support**: Implemented light/dark theme switching with system preference detection.
+- **Theme Provider**: Created [ThemeProvider](lib/providers/theme_provider.dart) for managing theme state with persistent storage using `shared_preferences`.
+- **Theme Toggle**: Added dark mode switch in [AccountScreen](lib/screens/account_screen.dart) under a new "Preferences" section.
+- **Dependencies**: Added `shared_preferences` for theme preference persistence.
+
+### Changed
+
+- **Main App**: Updated [main.dart](lib/main.dart) to include ThemeProvider and define both light and dark themes with Material 3 design.
+- **CustomAppBar**: Modified [CustomAppBar](lib/widgets/custom_app_bar.dart) to conditionally show account icon only when user is signed in.
+- **LoginScreen**: Migrated [LoginScreen](lib/screens/login_screen.dart) to use CustomAppBar with dynamic title.
+
+### Fixed
+
+- Fixed syntax errors in [AccountScreen](lib/screens/account_screen.dart) where widgets were incorrectly nested.
+
+
 ## [0.0.8] - 2026-02-01
 
 ### Added
@@ -26,6 +46,7 @@ and this project adheres to [Semantic Versioning].
 ### Fixed
 
 - Fixed corrupted code in [BookViewScreen](lib/screens/book_view_screen.dart) that caused compilation errors.
+
 
 ## [0.0.7] - 2026-01-29
 
@@ -46,6 +67,7 @@ and this project adheres to [Semantic Versioning].
 
 - **Legacy Storage**: Deleted [database_helper.dart](lib/services/database_helper.dart) and removed local SQLite implementation.
 - **Dependencies**: Removed `firebase_database` (Realtime Database) in favor of Firestore.
+
 
 ## [0.0.6] - 2026-01-29
 
@@ -77,6 +99,7 @@ and this project adheres to [Semantic Versioning].
 - Updated [database_helper.dart](lib/services/database_helper.dart) to version 2, adding schema migrations and automatic timestamp updates for new and edited books.
 - Firebase MCP in [.vscode/mcp.json](.vscode/mcp.json)
 
+
 ## [0.0.4] - 2026-01-28
 
 ### Added
@@ -101,6 +124,7 @@ and this project adheres to [Semantic Versioning].
 
 - [Scanner Screen](lib/screens/scanner_screen.dart) crashing after scanning a barcode
 
+
 ## [0.0.2] - 2026-01-21
 
 ### Added
@@ -111,6 +135,7 @@ and this project adheres to [Semantic Versioning].
 
 - pod install in iOS app
 
+
 ## [0.0.1] - 2026-01-21
 
 - initial release
@@ -120,7 +145,8 @@ and this project adheres to [Semantic Versioning].
 [semantic versioning]: https://semver.org/spec/v2.0.0.html
 
 <!-- Versions -->
-[unreleased]: https://github.com/jphat/mymaktaba/compare/v0.0.8...HEAD
+[unreleased]: https://github.com/jphat/mymaktaba/compare/v0.0.9...HEAD
+[0.0.9]: https://github.com/jphat/mymaktaba/compare/v0.0.8...v0.0.9
 [0.0.8]: https://github.com/jphat/mymaktaba/compare/v0.0.7...v0.0.8
 [0.0.7]: https://github.com/jphat/mymaktaba/compare/v0.0.6...v0.0.7
 [0.0.6]: https://github.com/jphat/mymaktaba/compare/v0.0.5...v0.0.6
