@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/book_provider.dart';
-import 'account_screen.dart';
+import '../widgets/custom_app_bar.dart';
 
 class ExportScreen extends StatelessWidget {
   const ExportScreen({super.key});
@@ -9,27 +9,7 @@ class ExportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: const Text('Export Books')),
-      appBar: AppBar(
-        centerTitle: false,
-        title: const Text(
-          'Export',
-          style: TextStyle(fontWeight: FontWeight.w700, fontSize: 32),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.account_circle_outlined),
-            iconSize: 32,
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const AccountScreen()),
-              );
-            },
-          ),
-          const SizedBox(width: 8), // Padding from the right edge
-        ],
-      ),
+      appBar: const CustomAppBar(title: 'Export'),
       body: Consumer<BookProvider>(
         builder: (context, provider, child) {
           final isEmpty = provider.savedBooks.isEmpty;

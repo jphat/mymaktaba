@@ -30,4 +30,7 @@ service cloud.firestore {
 
 ...
 
-cd ios && pod install --repo-update
+cd ios && pod install --repo-update && cd ..
+open ios/Runner.xcworkspace
+
+xcode: product > archive

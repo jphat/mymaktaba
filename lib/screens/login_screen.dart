@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mymaktaba/services/auth_service.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import '../widgets/custom_app_bar.dart';
 
 class LoginScreen extends StatefulWidget {
   final AuthService? authService;
@@ -105,7 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(_isLogin ? 'Login' : 'Sign Up')),
+      appBar: CustomAppBar(title: _isLogin ? 'Login' : 'Sign Up'),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
